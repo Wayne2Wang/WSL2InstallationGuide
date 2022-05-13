@@ -54,10 +54,18 @@
   
   In this case, there are a few things can be done:
   - Enable Virtual Machine Platform, Windows Subsystem for Linux, Windows Hypervisor Platform: <br>Windows -> Search for Turn Windows features on or off -> Look for these features
-  - Enable Hardware/CPU virtualization:<br>Restart the machine -> go into BIOS mode -> enable virtualization ()
-
+  - Enable Hardware/CPU virtualization:<br>Restart the machine -> go into BIOS mode -> enable virtualization (may have different names depending on you device)
   
+  ## 4. Install softwares
   
+  Now you can install your favorite softwares as how you would usually do! The last section contains some useful information for installing some softwares like Miniconda, CUDA, etc. 
+  
+  To verify that we do have GPU access, we can simply install Pytorch with CUDA and run
+  ```
+  import torch
+  torch.cuda.is_available()
+  torch.cuda.get_device_name(0)
+  ```
   
   ##### Links
   - Official guide: https://docs.microsoft.com/en-us/windows/wsl/install 
