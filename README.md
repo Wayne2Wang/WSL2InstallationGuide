@@ -86,12 +86,47 @@ conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
 
 - CUDA
+
+Go to [NVIDIA's official CUDA tool kit archive website](https://developer.nvidia.com/cuda-toolkit-archive), choose the desired release, and follow the instruction there. For example, to install CUDA 11.3.0 on WSL2-Ubuntu, we can do
+```
+wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
+sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/cuda-repo-wsl-ubuntu-11-3-local_11.3.0-1_amd64.deb
+sudo dpkg -i cuda-repo-wsl-ubuntu-11-3-local_11.3.0-1_amd64.deb
+sudo apt-key add /var/cuda-repo-wsl-ubuntu-11-3-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda-11.3 # different from the official guide, works better when dealing with multiple CUDA releases
+```
+
+- [MinkowskiEngine](https://github.com/NVIDIA/MinkowskiEngine)
   
-
-
+First compile CUDA and install Pytorch with the **same** CUDA version as instructed above. Let's say we use CUDA 11.3 here. Then run the following
+```
+export CUDA_HOME=/usr/local/cuda-11.3
+export MAX_JOBS=1 # prevents a weird error
+  
+# If we use CUDA 10, we need GCC < 8
+# export CXX=g++-7
+  
+sudo apt install build-essential python3-dev libopenblas-dev
+pip install torch ninja
+pip install -U MinkowskiEngine --install-option="--blas=openblas" -v --no-deps
+  
+# For pip installation from the latest source
+# pip install -U git+https://github.com/NVIDIA/MinkowskiEngine -v --no-deps \
+#                           \ # uncomment the following line if you want to force cuda installation
+#                           --install-option="--force_cuda" \
+#                           \ # uncomment the following line if you want to force no cuda installation. force_cuda supercedes cpu_only
+#                           --install-option="--cpu_only" \
+#                           \ # uncomment the following line to override to openblas, atlas, mkl, blas
+#                           --install-option="--blas=openblas" \
+```
+  
   
 ## Trouble shooting <a id="shoot">
-- WSL2 cannot connect to internet: This is usually because the DNS server address is constantly rewritten by WSL2 for some reason. Simply run the following command fixes the problem
+- WSL2 cannot connect to internet
+  
+This is usually because the DNS server address is constantly rewritten by WSL2 for some reason. Simply run the following command fixes the problem
 ```
 sudo rm /etc/resolv.conf
 sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
