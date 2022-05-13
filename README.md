@@ -77,6 +77,11 @@ rm -rf ~/miniconda3/miniconda.sh
 ~/miniconda3/bin/conda init bash
 ~/miniconda3/bin/conda init zsh
 ```
+Create and switch to a new environment
+```
+conda create --name py39 python=3.9
+conda activate py39
+```
   
 - Pytorch
   
