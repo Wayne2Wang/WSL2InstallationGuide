@@ -107,6 +107,7 @@ sudo apt-get -y install cuda-11.3 # different from the official guide, works bet
   
 First compile CUDA and install Pytorch with the **same** CUDA version as instructed above. Let's say we use CUDA 11.3 here. Then run the following
 ```
+export CXX=gcc
 export CUDA_HOME=/usr/local/cuda-11.3
 export MAX_JOBS=1 # prevents a weird error
   
