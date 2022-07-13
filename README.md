@@ -105,7 +105,14 @@ sudo apt-get -y install cuda-11.3 # different from the official guide, works bet
 
 - [MinkowskiEngine](https://github.com/NVIDIA/MinkowskiEngine)
   
-First compile CUDA and install Pytorch with the **same** CUDA version as instructed above. Let's say we use CUDA 11.3 here. Then run the following
+First compile CUDA and install Pytorch with the **same** CUDA version as instructed above. Note that if on UofM Great Lakes cluster, one can simply run the below to load python, openblas, and pytorch with CUDA 11.3 (no need to manually install CUDA). Also note that using anaconda on this cluster might be problematic if used in conjunction with pytorch.
+```
+module purge
+module load python pytorch
+module load openblas # workaround for one of the below command if don't have sudo access
+```
+
+Let's say we use CUDA 11.3 here. Then run the following
 ```
 export CXX=gcc
 export CUDA_HOME=/usr/local/cuda-11.3
@@ -115,7 +122,7 @@ export MAX_JOBS=1 # prevents a weird error
 # export CXX=g++-7
   
 sudo apt install build-essential python3-dev libopenblas-dev
-pip install torch ninja
+pip install ninja
 pip install -U MinkowskiEngine --install-option="--blas=openblas" -v --no-deps
   
 # For pip installation from the latest source
@@ -127,7 +134,7 @@ pip install -U MinkowskiEngine --install-option="--blas=openblas" -v --no-deps
 #                           \ # uncomment the following line to override to openblas, atlas, mkl, blas
 #                           --install-option="--blas=openblas" \
 ```
-  
+
   
 ## Trouble shooting <a id="shoot">
 - WSL2 cannot connect to internet
