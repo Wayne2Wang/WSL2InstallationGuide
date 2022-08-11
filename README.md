@@ -108,7 +108,7 @@ sudo apt-get -y install cuda-11.3 # different from the official guide, works bet
 First compile CUDA and install Pytorch with the **same** CUDA version as instructed above. Note that if on UofM Great Lakes cluster, one can simply run the below to load python, openblas, and pytorch with CUDA 11.3 (no need to manually install CUDA). Also note that using anaconda on this cluster might be problematic if used in conjunction with pytorch.
 ```
 module purge
-module load python pytorch
+module load python/3.9 pytorch
 module load openblas # workaround for one of the below command if don't have sudo access
 ```
 
