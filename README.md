@@ -137,6 +137,8 @@ pip install -U MinkowskiEngine --install-option="--blas=openblas" -v --no-deps
 #                           --install-option="--blas=openblas" \
 ```
 
+See this issue if problem persists: https://github.com/NVIDIA/MinkowskiEngine/issues/300                                    
+                               
   
 ## Trouble shooting <a id="shoot">
 - WSL2 cannot connect to internet
